@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.thiago.teste_spring.dtos.UserAdressResponseDTO;
 import com.thiago.teste_spring.dtos.UserPasswordResponseDTO;
 import com.thiago.teste_spring.dtos.UserResponseDTO;
 import com.thiago.teste_spring.entity.UserEntity;
 import com.thiago.teste_spring.service.UserService;
+import com.thiago.teste_spring.service.ViaCepService;
 
 @RestController
 @RequestMapping("/user")
@@ -23,6 +25,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ViaCepService viaCepService;
 	
 	@GetMapping
 	public ResponseEntity<List<UserResponseDTO>> listAllUsers(){
@@ -33,6 +38,11 @@ public class UserController {
 	public ResponseEntity<UserEntity> listUserById(@PathVariable Long id){
 		UserEntity userEntityId = userService.getUserById(id);
 		return ResponseEntity.ok(userEntityId);
+	}
+	
+	@GetMapping("/{id}/ViaCep")
+	public ResponseEntity<UserAdressResponseDTO> listAllUsersViaCep(@PathVariable Long id){
+		return ResponseEntity.ok(this.viaCepService.getUserWithAdress(id));
 	}
 	
 	@PostMapping

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.thiago.teste_spring.dtos.UserPasswordResponseDTO;
 import com.thiago.teste_spring.dtos.UserResponseDTO;
 import com.thiago.teste_spring.entity.UserEntity;
@@ -19,7 +18,7 @@ public class UserService {
 	public List<UserResponseDTO> listAllUsers(){		 
 		return userRepository.findAll()
 				.stream()
-				.map(u -> new UserResponseDTO(u.getName(), u.getLogin(), u.getEmail()))
+				.map(u -> new UserResponseDTO(u.getId(), u.getName(), u.getLogin(), u.getEmail(), u.getCep()))
 				.toList();
 	}
 	
@@ -28,7 +27,7 @@ public class UserService {
 	}
 	
 	public UserEntity registerUser(UserPasswordResponseDTO dto) {
-		 UserEntity user = new UserEntity(dto.name(), dto.login(), dto.password(), dto.email());
+		 UserEntity user = new UserEntity(dto.name(), dto.login(), dto.password(), dto.email(), dto.cep());
 		 return this.userRepository.save(user);
 	}
 	
@@ -37,7 +36,6 @@ public class UserService {
 	}
 	
 	public void deleteUserById(Long id) {
-		userRepository.deleteById(id);
-		
+		userRepository.deleteById(id);		
 	}
 }

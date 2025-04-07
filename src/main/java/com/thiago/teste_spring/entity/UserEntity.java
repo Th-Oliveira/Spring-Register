@@ -26,22 +26,25 @@ public class UserEntity {
 	
 	@Column(name="email", nullable = false)
 	private String email;
+	
+	@Column(name="cep", nullable = false)
+	private String cep;
 
 	public UserEntity() {}
 
-	public UserEntity(String name, String login, String email) {
-		super();
+	public UserEntity(String name, String login, String email, String cep) {
 		this.name = name;
 		this.login = login;
 		this.email = email;
+		this.cep = cep;
 	}	
 
-	public UserEntity(String name, String login, String password, String email) {
-		super();
+	public UserEntity(String name, String login, String password, String email, String cep) {
 		this.name = name;
 		this.login = login;
 		this.password = password;
 		this.email = email;
+		this.cep = cep;
 	}
 
 	public Long getId() {
@@ -83,4 +86,12 @@ public class UserEntity {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}	
 }
