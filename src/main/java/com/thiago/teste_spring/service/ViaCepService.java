@@ -1,6 +1,8 @@
 package com.thiago.teste_spring.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.thiago.teste_spring.client.AdressDTOFeignClient;
@@ -18,13 +20,24 @@ public class ViaCepService {
 	@Autowired
 	private ViaCepClient viaCepClient;
 	
-	public UserAdressResponseDTO getUserWithAdress(Long id) {
+	public List<UserAdressResponseDTO> getAllUserWithAdress() {
+	    return userRepository.findAll()
+	            .stream()
+	            .map(user -> {
+	                AdressDTOFeignClient adress = viaCepClient.getAdress(user.getCep());
+	                return new UserAdressResponseDTO(user, adress);
+	            })
+	            .toList();
+	}
+	
+	public UserAdressResponseDTO getUserWithAdressById(Long id) {
 		UserEntity user = this.userRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Usuário com ID " + id + "não encontrado!"));
 		
 		AdressDTOFeignClient adress = viaCepClient.getAdress(user.getCep());
 		
 		return new UserAdressResponseDTO(
+				user.getId(),
 				user.getName(),
 			    user.getLogin(),
 			    user.getEmail(),

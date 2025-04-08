@@ -4,6 +4,7 @@ import com.thiago.teste_spring.client.AdressDTOFeignClient;
 import com.thiago.teste_spring.entity.UserEntity;
 
 public record UserAdressResponseDTO(
+		Long id,
 		String name,
 	    String login,
 	    String email,
@@ -17,6 +18,7 @@ public record UserAdressResponseDTO(
 	
 	public UserAdressResponseDTO(UserEntity user, AdressDTOFeignClient adress) {
 		this(
+				user.getId(),
 				user.getName(),
 				user.getLogin(),
 				user.getEmail(),

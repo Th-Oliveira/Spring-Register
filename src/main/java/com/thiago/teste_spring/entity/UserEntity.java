@@ -32,14 +32,15 @@ public class UserEntity {
 
 	public UserEntity() {}
 
-	public UserEntity(String name, String login, String email, String cep) {
-		this.name = name;
-		this.login = login;
-		this.email = email;
-		this.cep = cep;
-	}	
+//	public UserEntity(String name, String login, String email, String cep) {
+//		this.name = name;
+//		this.login = login;
+//		this.email = email;
+//		this.cep = cep;
+//	}	
 
-	public UserEntity(String name, String login, String password, String email, String cep) {
+	public UserEntity(Long id, String name, String login, String password, String email, String cep) {
+		this.id = id;
 		this.name = name;
 		this.login = login;
 		this.password = password;
