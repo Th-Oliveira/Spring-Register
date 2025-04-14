@@ -9,6 +9,7 @@ import com.thiago.teste_spring.client.AdressDTOFeignClient;
 import com.thiago.teste_spring.client.ViaCepClient;
 import com.thiago.teste_spring.dtos.UserAdressResponseDTO;
 import com.thiago.teste_spring.entity.UserEntity;
+import com.thiago.teste_spring.exception.UserIdNotFoundException;
 import com.thiago.teste_spring.repository.UserRepository;
 
 @Service
@@ -32,7 +33,7 @@ public class ViaCepService {
 	
 	public UserAdressResponseDTO getUserWithAdressById(Long id) {
 		UserEntity user = this.userRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Usuário com ID " + id + "não encontrado!"));
+				.orElseThrow(() -> new UserIdNotFoundException(id));
 		
 		AdressDTOFeignClient adress = viaCepClient.getAdress(user.getCep());
 		

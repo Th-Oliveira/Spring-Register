@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.thiago.teste_spring.dtos.UserRequestDTO;
 import com.thiago.teste_spring.dtos.UserResponseDTO;
 import com.thiago.teste_spring.entity.UserEntity;
+import com.thiago.teste_spring.exception.UserIdNotFoundException;
 import com.thiago.teste_spring.repository.UserRepository;
 
 @Service
@@ -29,7 +30,7 @@ public class UserService {
 	
 	public UserEntity getUserById(Long id){
 		return this.userRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Usuário com ID " + id + " não encontrado!"));
+				.orElseThrow(() -> new UserIdNotFoundException(id));
 	}
 	
 	public UserEntity registerUser(UserRequestDTO dto) {
